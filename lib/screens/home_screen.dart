@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       size: 30,
                     ),
                     tileColor: Colors.yellow.shade100.withOpacity(0.5),
-                    shape: RoiundedRectangleBorder(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
