@@ -11,26 +11,44 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late Timer _timer1;
+  late Timer _timer2;
+  late Timer _timer3;
   double _scale = 0.0;
   bool isVisible = false;
 
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1) , () {
+
+    _timer1 = Timer(Duration(seconds: 1), () {
       setState(() {
         _scale = _scale == 0.0 ? 1 : 0;
       });
     });
-    Timer(const Duration(milliseconds: 1800), () {
+
+    _timer2 = Timer(Duration(milliseconds: 1800), () {
       setState(() {
         isVisible = !isVisible;
       });
     });
 
-    Timer(const Duration(milliseconds: 2300), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen(),));
+    _timer3 = Timer(Duration(milliseconds: 2300), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer1.cancel();
+    _timer2.cancel();
+    _timer3.cancel();
+    super.dispose();
   }
 
   @override
@@ -55,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 10,
             ),
             AnimatedOpacity(
-              duration: Duration(milliseconds: 1800),
+              duration: Duration(milliseconds: 500),
               opacity: isVisible ? 1 : 0,
               child: const Text(
                 'Quotes',
